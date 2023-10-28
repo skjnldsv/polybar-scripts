@@ -16,16 +16,20 @@ VOLUME=$(pamixer --get-volume-human)
 SINK=$(getDefaultSink)
 SOURCE=$(getDefaultSource)
 
+if [[ "$VOLUME" == "muted" ]]; then
+    VOLUME="󰝟"
+fi
+
 case $1 in
     "--up")
-        pamixer --increase 10
+        pamixer --increase 5
         ;;
     "--down")
-        pamixer --decrease 10
+        pamixer --decrease 5
         ;;
     "--mute")
         pamixer --toggle-mute
         ;;
     *)
-        echo "Source: ${SOURCE} | Sink: ${VOLUME} ${SINK}"
+        echo "[${SINK:0:13}] ${VOLUME}"
 esac

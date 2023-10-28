@@ -1,7 +1,7 @@
 #!/bin/sh
 
 get_mic_default() {
-    pw-cat --record --list-targets | sed -n -E "1 s/^.*: (.*)/\1/p"
+    pactl get-default-source
 }
 
 is_mic_muted() {
@@ -22,9 +22,9 @@ get_mic_status() {
     is_muted="$(is_mic_muted)"
 
     if [ "${is_muted}" = "yes" ]; then
-        printf "%s\n" "#1"
+        echo '%{F#ab4642}%{F-}'
     else
-        printf "%s\n" "#2"
+        echo ""
     fi
 }
 
