@@ -4,8 +4,8 @@ PAGE=1
 PER_PAGE=50
 NOTIFICATIONS=0
 
-# Check if it's the weekend
-if [[ $(date +%u) -gt 5 ]]
+# Check if it's Monday or the weekend
+if [[ $(date +%u) -lt 2 || $(date +%u) -gt 5 ]]
 then
     echo ''
     exit 0
