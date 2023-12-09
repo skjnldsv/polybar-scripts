@@ -1,7 +1,8 @@
 #!/bin/sh
 
 get_mic_default() {
-    pactl info | awk '/Default Source:/ {print $3}'
+    # pactl info | awk '/Default Source:/ {print $3}'
+    echo "alsa_input.usb-BIRD_UM1_BIRD_UM1-00.mono-fallback"
 }
 
 is_mic_muted() {
@@ -10,9 +11,9 @@ is_mic_muted() {
 
 get_mic_status() {
     if [ "$(is_mic_muted)" = "yes" ]; then
-        printf "%s\n" "#1"
+        echo '%{F#ab4642}%{F-}'
     else
-        printf "%s\n" "#2"
+        echo ""
     fi
 }
 
@@ -26,7 +27,7 @@ listen() {
 }
 
 toggle() {
-    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    pactl set-source-mute "$(get_mic_default)" toggle
 }
 
 case "${1}" in

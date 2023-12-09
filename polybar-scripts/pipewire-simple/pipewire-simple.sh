@@ -2,7 +2,7 @@
 
 getDefaultSink() {
     defaultSink=$(pactl info | awk -F : '/Default Sink:/{print $2}')
-    description=$(pactl list sinks | sed -n "/${defaultSink}/,/Description/s/^\s*Description: \(.*\)/\1/p")
+    description=$(pactl list sinks | sed -n "/${defaultSink}/,/Description/s/^\s*Description: \(.*\)/\1/p" | head -n 1)
     echo "${description}"
 }
 
@@ -31,5 +31,5 @@ case $1 in
         pamixer --toggle-mute
         ;;
     *)
-        echo "[${SINK:0:13}] ${VOLUME}"
+        echo "[${SINK}] ${VOLUME}"
 esac
